@@ -1,4 +1,5 @@
-package autocomplete;
+package util;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +14,8 @@ import com.google.common.io.Resources;
 public class HtmlsFalso {
 
 	  public static final Document LISTA_ESTADOS_SOBERANOS = html("/wikipedia/lista-de-estados-soberanos.html");
+	  
+	  public static final Document PAGINA_DE_UM_PAIS = html("/wikipedia/pagina-de-um-pais.html");
 
 	  private HtmlsFalso() {
 	  }
