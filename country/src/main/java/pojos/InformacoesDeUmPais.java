@@ -1,6 +1,5 @@
-package informacoes.pais;
+package pojos;
 
-import autocomplete.Pais;
 
 public class InformacoesDeUmPais {
 
