@@ -1,10 +1,11 @@
-package informacoes.pais;
+package extraindo.informacoes;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import autocomplete.Pais;
+import pojos.InformacoesDeUmPais;
+import pojos.Pais;
 
 
 public class ObterInformacoesDeUmPais {
@@ -63,21 +64,21 @@ public class ObterInformacoesDeUmPais {
 	}
 	
 	private void extraindoArea(InformacoesDeUmPais informacoes) {
-		String area = extraindoDadosDeColunaDaProxinhaLinha("Lista de países e territórios por área");
+		String area = extraindoDadosDeColunaDaProximaLinha("Lista de países e territórios por área");
 		int limite = area.indexOf("[");
 		area = area.substring(0, limite);
 		informacoes.setArea(toCode(area));
 	}
 	
 	private void extraindoPopulacao(InformacoesDeUmPais informacoes) {
-		String populacao = extraindoDadosDeColunaDaProxinhaLinha("População");
+		String populacao = extraindoDadosDeColunaDaProximaLinha("População");
 		int limite = populacao.indexOf("[");
 		populacao = populacao.substring(0, limite);
 		informacoes.setPopulacao(toCode(populacao));
 	}
 	
 	private void extraindoPIB(InformacoesDeUmPais informacoes) {
-		String pib = extraindoDadosDeColunaDaProxinhaLinha("Produto interno bruto");
+		String pib = extraindoDadosDeColunaDaProximaLinha("Produto interno bruto");
 		int limite = pib.indexOf("*");
 		pib = pib.substring(0, limite);
 		informacoes.setPIB(toCode(pib));
@@ -85,9 +86,9 @@ public class ObterInformacoesDeUmPais {
 	
 	private void extraindoIDH(InformacoesDeUmPais informacoes) {
 		String idh = extraindoDadosDaMesmaLinha("Índice de Desenvolvimento Humano");
-		int limite = idh.indexOf("(");
+		int limite = idh.indexOf("(") - 1;
 		idh = idh.substring(0, limite);
-		informacoes.setIDH(toCode(idh));
+		informacoes.setIDH(idh);
 	}
 	
 	private void extraindoCodigoISO(InformacoesDeUmPais informacoes) {
@@ -126,7 +127,7 @@ public class ObterInformacoesDeUmPais {
 		return valor;
 	}
 	
-	private String extraindoDadosDeColunaDaProxinhaLinha(String atributo) {
+	private String extraindoDadosDeColunaDaProximaLinha(String atributo) {
 		Elements elements = doc.select("tr");
 		
 		String valor = "";
@@ -143,8 +144,7 @@ public class ObterInformacoesDeUmPais {
 	}
 
 	private String toCode(String prova) {
-		char[] chars = Character.toChars(160);
-		return prova.replaceAll(String.valueOf(chars)," ");
+	  return prova.replace((char) 160,' ');
 	}
 
 }

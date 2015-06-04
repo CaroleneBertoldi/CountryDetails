@@ -1,10 +1,12 @@
-package autocomplete;
+package extraindo.informacoes;
 
 import java.util.List;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import pojos.Pais;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;

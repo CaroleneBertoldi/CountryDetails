@@ -1,4 +1,4 @@
-package informacoes.pais;
+package extraindo.informacoes;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -7,14 +7,12 @@ import org.jsoup.nodes.Document;
 import org.junit.Before;
 import org.junit.Test;
 
+import pojos.InformacoesDeUmPais;
+import pojos.Pais;
 import util.HtmlsFalso;
-import autocomplete.Pais;
-
-import com.google.inject.Inject;
 
 public class TesteDeObterInformacoesDeUmPais {
 
-	@Inject
 	private ObterInformacoesDeUmPais parser;
 	
 	@Before
@@ -43,8 +41,8 @@ public class TesteDeObterInformacoesDeUmPais {
 		
 		//informações adicionais
 		assertThat(informacoes.getPopulacao(), equalTo("202 768 562"));
-//		assertThat(informacoes.getPIB(), equalTo("US$ 2,244 trilhões"));
-//		assertThat(informacoes.getIDH(), equalTo("0,744"));
+		assertThat(informacoes.getPIB(), equalTo("US$ 2,244 trilhões"));
+		assertThat(informacoes.getIDH(), equalTo("0,744"));
 		assertThat(informacoes.getMoeda(), equalTo("Real (BRL)"));
 		assertThat(informacoes.getCodigoISO(), equalTo("BRA"));
 	}

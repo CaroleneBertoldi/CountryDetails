@@ -1,4 +1,4 @@
-package autocomplete;
+package extraindo.informacoes;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -9,14 +9,12 @@ import org.jsoup.nodes.Document;
 import org.junit.Before;
 import org.junit.Test;
 
+import pojos.Pais;
 import util.HtmlsFalso;
-
-import com.google.inject.Inject;
 
 
 public class TesteDeObterListaDePaises {
 	
-	@Inject
 	private ObterListaDePaises parser;
 	
 	@Before
