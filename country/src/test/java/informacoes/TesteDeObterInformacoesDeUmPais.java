@@ -1,4 +1,4 @@
-package extraindo.informacoes;
+package informacoes;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pojos.InformacoesDeUmPais;
-import pojos.Pais;
 import util.HtmlsFalso;
 
 public class TesteDeObterInformacoesDeUmPais {
@@ -23,14 +22,11 @@ public class TesteDeObterInformacoesDeUmPais {
 	
 	@Test
 	public void obter_informacoes_de_um_pais() {
-		Pais pais = new Pais();
-		pais.setNome("Brasil");
-		pais.setUrl("wikipedia/pagina-de-um-pais.html");
+		String pais = "Brasil";
 		
 		InformacoesDeUmPais informacoes = parser.carregarInformacoes(pais, "http://fake");
 		
 		assertThat(informacoes.getNome(), equalTo("Brasil"));
-		assertThat(informacoes.getUrl(), equalTo("wikipedia/pagina-de-um-pais.html"));
 		
 		//informações obrigatórias
 		assertThat(informacoes.getBandeira(), equalTo("http://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/125px-Flag_of_Brazil.svg.png"));

@@ -1,11 +1,10 @@
-package extraindo.informacoes;
+package informacoes;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import pojos.InformacoesDeUmPais;
-import pojos.Pais;
 
 
 public class ObterInformacoesDeUmPais {
@@ -16,7 +15,7 @@ public class ObterInformacoesDeUmPais {
 		this.doc = doc;
 	}
 
-	public InformacoesDeUmPais carregarInformacoes(Pais pais, String dominio) {
+	public InformacoesDeUmPais carregarInformacoes(String pais, String dominio) {
 		InformacoesDeUmPais informacoes = new InformacoesDeUmPais();
 		
 		informacoes.setPais(pais);

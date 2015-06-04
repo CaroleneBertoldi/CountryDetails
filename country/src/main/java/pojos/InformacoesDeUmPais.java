@@ -1,10 +1,10 @@
 package pojos;
 
 
+
 public class InformacoesDeUmPais {
 
 	private String nome;
-	private String url;
 	private String bandeira;
 	private String localizacao;
 	private String capital;
@@ -16,9 +16,8 @@ public class InformacoesDeUmPais {
 	private String moeda;
 	private String iso;
 
-	public void setPais(Pais pais) {
-		nome = pais.getNome();
-		url = pais.getUrl();
+	public void setPais(String pais) {
+		nome = pais;
 	}
 	
 	public void setBandeira(String bandeira) {
@@ -63,10 +62,6 @@ public class InformacoesDeUmPais {
 	
 	public String getNome() {
 		return nome;
-	}
-
-	public String getUrl() {
-		return url;
 	}
 
 	public String getBandeira() {

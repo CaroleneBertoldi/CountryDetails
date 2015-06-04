@@ -1,7 +1,8 @@
-package extraindo.informacoes;
+package informacoes;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
+import informacoes.ObterListaDePaises;
 
 import java.util.List;
 
@@ -27,15 +28,15 @@ public class TesteDeObterListaDePaises {
 	public void obter_lista_de_paises() {
 		List<Pais> paises = parser.getPaises();
 		
-		assertThat(paises.size(), equalTo(344));
+		assertThat(paises.size(), equalTo(339));
 		
 		assertThat(paises.get(0).getNome(), equalTo("Afeganistão"));
 		assertThat(paises.get(1).getNome(), equalTo("África do Sul"));
-		assertThat(paises.get(343).getNome(), equalTo("Transdniestre"));
+		assertThat(paises.get(338).getNome(), equalTo("Transdniestre"));
 		
 		assertThat(paises.get(0).getUrl(), equalTo("/wiki/Afeganist%C3%A3o"));
 		assertThat(paises.get(1).getUrl(), equalTo("/wiki/%C3%81frica_do_Sul"));
-		assertThat(paises.get(343).getUrl(), equalTo("/wiki/Transdniestre"));
+		assertThat(paises.get(338).getUrl(), equalTo("/wiki/Transdniestre"));
 	}
 	
 }

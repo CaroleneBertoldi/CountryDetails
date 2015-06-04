@@ -26,6 +26,7 @@
 		<jettyVersion>9.2.9.v20150224</jettyVersion>
  	</properties>
 	<build>
+		<finalName>country</finalName>
 	    <plugins>
 	        <plugin>
 	            <groupId>org.apache.maven.plugins</groupId>
