@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pojos.ItemDeHistorico;
-import pojos.Pais;
 
 public class TesteDeHistorico {
 
@@ -20,25 +19,11 @@ public class TesteDeHistorico {
   public void start() {
     historico = new Historico();
 
-    Pais siria = new Pais();
-    siria.setNome("Síria");
-    siria.setUrl("/wiki/S%C3%ADria");
-
-    Pais brasil = new Pais();
-    brasil.setNome("Brasil");
-    brasil.setUrl("/wiki/Brasil");
-
-    Pais alemanha = new Pais();
-    alemanha.setNome("Alemanha");
-    alemanha.setUrl("/wiki/Alemanha");
-
-    Pais equador = new Pais();
-    equador.setNome("Equador");
-    equador.setUrl("/wiki/Equador");
-
-    Pais chile = new Pais();
-    chile.setNome("Chile");
-    chile.setUrl("/wiki/Chile");
+    String siria = "Síria";
+    String brasil = "Brasil";
+    String alemanha = "Alemanha";
+    String equador = "Equador";
+    String chile = "Chile";
 
     historico.addPais(siria);
     historico.addPais(brasil);

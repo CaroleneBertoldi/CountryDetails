@@ -6,12 +6,4 @@
    metadata-complete="false"
    version="3.1">
  
-  <servlet>
-    <servlet-name>Hello</servlet-name>
-    <servlet-class>exemplo.HelloServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Hello</servlet-name>
-    <url-pattern>/hello/*</url-pattern>
-  </servlet-mapping>
 </web-app>

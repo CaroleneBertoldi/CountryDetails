@@ -6,26 +6,23 @@ import org.joda.time.DateTime;
 public class ItemDeHistorico {
 
 	private String nome;
-	private String url;
-	private DateTime data;
+	private String data;
 
-	public ItemDeHistorico(Pais pais) {
-		nome = pais.getNome();
-		url = pais.getUrl();
-		
-		data = new DateTime();
+	public ItemDeHistorico(String pais) {
+		nome = pais;
+		data = new DateTime().toString("YYYY-MM-dd HH:mm:ss");
 	}
 
+	public void setData(String data) {
+		this.data = data;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
 	
-	public String getUrl() {
-		return url;
-	}
-	
 	public String getData(){
-		return data.toString("YYYY-MM-dd HH:mm:ss");
+		return data;
 	}
 
 }

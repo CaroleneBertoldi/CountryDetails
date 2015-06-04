@@ -1,4 +1,4 @@
-package extraindo.informacoes;
+package informacoes;
 
 import java.util.List;
 
@@ -9,9 +9,10 @@ import org.jsoup.select.Elements;
 import pojos.Pais;
 
 import com.google.common.base.Function;
-import com.google.common.collect.Lists;
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
 
-class ObterListaDePaises {
+public class ObterListaDePaises {
 
 	private List<Pais> paises;
 	
@@ -25,7 +26,10 @@ class ObterListaDePaises {
 	}
 
 	private void list(Elements elements){
-		paises = Lists.transform(elements, new ParaPais());
+		paises = FluentIterable.from(elements)
+		.transform(new ParaPais())
+		.filter(new FiltrarPaisesExistentes())
+		.toList();
 	}
 	
 	private class ParaPais implements Function<Element, Pais> {
@@ -39,6 +43,15 @@ class ObterListaDePaises {
 			pais.setUrl(href);
 			
 			return pais;
+		}
+		
+	}
+	
+	private class FiltrarPaisesExistentes implements Predicate<Pais>{
+
+		@Override
+		public boolean apply(Pais pais) {
+			return ! pais.getUrl().contains("/w/index.php?");
 		}
 		
 	}
