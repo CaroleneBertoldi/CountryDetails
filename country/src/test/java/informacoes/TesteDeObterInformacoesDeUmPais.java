@@ -24,7 +24,7 @@ public class TesteDeObterInformacoesDeUmPais {
 	public void obter_informacoes_de_um_pais() {
 		String pais = "Brasil";
 		
-		InformacoesDeUmPais informacoes = parser.carregarInformacoes(pais, "http://fake");
+		InformacoesDeUmPais informacoes = parser.carregarInformacoes(pais);
 		
 		assertThat(informacoes.getNome(), equalTo("Brasil"));
 		

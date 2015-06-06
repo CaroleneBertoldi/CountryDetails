@@ -15,7 +15,7 @@ public class ObterInformacoesDeUmPais {
 		this.doc = doc;
 	}
 
-	public InformacoesDeUmPais carregarInformacoes(String pais, String dominio) {
+	public InformacoesDeUmPais carregarInformacoes(String pais) {
 		InformacoesDeUmPais informacoes = new InformacoesDeUmPais();
 		
 		informacoes.setPais(pais);
@@ -53,7 +53,9 @@ public class ObterInformacoesDeUmPais {
 	private void extraindoLinguaOficial(InformacoesDeUmPais informacoes) {
 		String lingua = extraindoDadosDaMesmaLinha("Língua oficial");
 		int limite = lingua.indexOf("[");
-		lingua = lingua.substring(0, limite);
+		if (limite > 0) {
+		  lingua = lingua.substring(0, limite);
+		}
 		informacoes.setLinguaOficial(lingua);
 	}
 	
@@ -65,28 +67,36 @@ public class ObterInformacoesDeUmPais {
 	private void extraindoArea(InformacoesDeUmPais informacoes) {
 		String area = extraindoDadosDeColunaDaProximaLinha("Lista de países e territórios por área");
 		int limite = area.indexOf("[");
-		area = area.substring(0, limite);
+		if (limite > 0) {
+		  area = area.substring(0, limite);
+		}
 		informacoes.setArea(toCode(area));
 	}
 	
 	private void extraindoPopulacao(InformacoesDeUmPais informacoes) {
 		String populacao = extraindoDadosDeColunaDaProximaLinha("População");
-		int limite = populacao.indexOf("[");
-		populacao = populacao.substring(0, limite);
+	  int limite = populacao.indexOf("[");
+		if (limite > 0) {
+		  populacao = populacao.substring(0, limite);
+		}
 		informacoes.setPopulacao(toCode(populacao));
 	}
 	
 	private void extraindoPIB(InformacoesDeUmPais informacoes) {
 		String pib = extraindoDadosDeColunaDaProximaLinha("Produto interno bruto");
 		int limite = pib.indexOf("*");
-		pib = pib.substring(0, limite);
+		if (limite > 0) {
+		  pib = pib.substring(0, limite);
+		}
 		informacoes.setPIB(toCode(pib));
 	}
 	
 	private void extraindoIDH(InformacoesDeUmPais informacoes) {
 		String idh = extraindoDadosDaMesmaLinha("Índice de Desenvolvimento Humano");
 		int limite = idh.indexOf("(") - 1;
-		idh = idh.substring(0, limite);
+		if (limite > 0) {
+		  idh = idh.substring(0, limite);
+		}
 		informacoes.setIDH(idh);
 	}
 	

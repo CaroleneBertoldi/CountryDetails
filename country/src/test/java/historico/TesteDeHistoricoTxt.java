@@ -21,20 +21,20 @@ public class TesteDeHistoricoTxt {
 		
 		assertFalse(arquivo.exists());
 		
-		HistoricoTxt.instancia();
+		HistoricoTxt.INSTANCIA.getItensDeHistorico();
 		
 		assertTrue(arquivo.exists());
 		
-		arquivo.deleteOnExit();
+		arquivo.delete();
 	}
 	
 	@Test
 	public void ler_e_escrever_em_arquivo(){
 		File arquivo = new File("historico.txt");
 		
-		HistoricoTxt txt = HistoricoTxt.instancia();
-		txt.addItemDeHistorico("Brasil");
-		txt.addItemDeHistorico("Argentina");
+		HistoricoTxt txt = HistoricoTxt.INSTANCIA;
+		txt.addItemDeHistorico("Brasil", "01/01/2015 00:00:00");
+		txt.addItemDeHistorico("Argentina", "01/01/2015 00:01:00");
 		
 		List<ItemDeHistorico> itens = txt.getItensDeHistorico();
 		
