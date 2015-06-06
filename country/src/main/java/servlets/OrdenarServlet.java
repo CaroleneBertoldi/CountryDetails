@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/selecionar" })
-public class SelecionarServlet extends HttpServlet {
-
+@WebServlet(urlPatterns = { "/ordenar" })
+public class OrdenarServlet extends HttpServlet {
+  
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    ServletHelper.selecionar(request, response);
+    ServletHelper.ordenar(request, response);
   }
   
 }

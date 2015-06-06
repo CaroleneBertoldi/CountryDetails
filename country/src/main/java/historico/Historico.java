@@ -8,24 +8,32 @@ import java.util.List;
 
 import pojos.ItemDeHistorico;
 
-public class Historico {
-	
-	private List<ItemDeHistorico> itens;
+import com.google.common.collect.ComparisonChain;
+import com.google.common.collect.Lists;
+
+public enum Historico {
+  
+  INSTANCIA;
+  
+  private List<ItemDeHistorico> itens;
 	
 	private TipoDeOrdenacao tipoDeOrdenacao = QUICKSORT;
 	
 	private boolean ordena;
-
-	public Historico() {
-		HistoricoTxt txt = HistoricoTxt.instancia();
-		itens = txt.getItensDeHistorico() != null 
-				? txt.getItensDeHistorico()
-				: new ArrayList<ItemDeHistorico>();;
+	
+	private Historico() {
+	  itens = HistoricoTxt.INSTANCIA.getItensDeHistorico();
 	}
-
+	
 	public void addPais(String pais) {
-		ItemDeHistorico novoItem = new ItemDeHistorico(pais);
-		itens.add(novoItem);
+	  ItemDeHistorico itemDeHistorico = new ItemDeHistorico(pais);
+	  itens.add(itemDeHistorico);
+	  
+		HistoricoTxt.INSTANCIA.addItemDeHistorico(itemDeHistorico.getNome(), itemDeHistorico.getData());
+	}
+	
+	public TipoDeOrdenacao getTipoDeOrdenacao() {
+	  return tipoDeOrdenacao;
 	}
 	
 	public void setOrdena(boolean ordena) {
@@ -35,24 +43,28 @@ public class Historico {
 	public void setTipoDeOrdenacao(TipoDeOrdenacao tipoDeOrdenacao) {
 		this.tipoDeOrdenacao = tipoDeOrdenacao;
 	}
+	
+  
 
 	public List<ItemDeHistorico> getListaDePaises() {
 	  if (ordena) {
 	    List<ItemDeHistorico> itensOrdenados = new ArrayList<ItemDeHistorico>(itens);
-	    tipoDeOrdenacao.sort(itensOrdenados, new ItemDeHistoricoComparator());
+	    tipoDeOrdenacao.sort(itensOrdenados, ItemDeHistoricoComparator.INSTANCE);
 	    return itensOrdenados;
 	  }
 	  
-	  return itens;
+	  return Lists.reverse(itens);
 	}
 	
-	private static class ItemDeHistoricoComparator implements Comparator<ItemDeHistorico> {
-
-	    @Override
-	    public int compare(ItemDeHistorico itemDeHistorico1, ItemDeHistorico itemDeHistorico2) {
-	      return itemDeHistorico1.getNome().compareTo(itemDeHistorico2.getNome());
-	    }
-	  
+	private enum ItemDeHistoricoComparator implements Comparator<ItemDeHistorico> {
+	  INSTANCE;
+	  @Override
+	  public int compare(ItemDeHistorico itemDeHistorico1, ItemDeHistorico itemDeHistorico2) {
+	    return ComparisonChain.start()
+	        .compare(itemDeHistorico1.getNome(), itemDeHistorico2.getNome())
+	        .compare(itemDeHistorico1.getDate(), itemDeHistorico2.getDate())
+	        .result();	      
+	  }
 	}
 	
 }

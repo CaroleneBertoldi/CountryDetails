@@ -1,28 +1,45 @@
 package pojos;
 
-import org.joda.time.DateTime;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import com.google.common.base.Throwables;
 
 public class ItemDeHistorico {
+  
+  public static DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	private String nome;
-	private String data;
+	private Date date;
 
 	public ItemDeHistorico(String pais) {
 		nome = pais;
-		data = new DateTime().toString("YYYY-MM-dd HH:mm:ss");
-	}
-
-	public void setData(String data) {
-		this.data = data;
+		date = new Date();
 	}
 	
-	public String getNome() {
+	public ItemDeHistorico(String pais, String data) {
+	  this(pais);
+	  
+	  try {
+      date = DATE_FORMAT.parse(data);
+      
+    } catch (ParseException e) {
+      throw Throwables.propagate(e);
+    }
+  }
+
+  public String getNome() {
 		return nome;
 	}
 	
+	public Date getDate() {
+	  return date;
+	}
+	
 	public String getData(){
-		return data;
+	  return DATE_FORMAT.format(date);
 	}
 
 }
