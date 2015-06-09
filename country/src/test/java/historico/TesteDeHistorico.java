@@ -30,12 +30,14 @@ public class TesteDeHistorico {
     String alemanha = "Alemanha";
     String equador = "Equador";
     String chile = "Chile";
+    String africaDoSul = "África do Sul";
 
     historico.addPais(siria);
     historico.addPais(brasil);
     historico.addPais(alemanha);
     historico.addPais(equador);
     historico.addPais(chile);
+    historico.addPais(africaDoSul);
     
     Thread.sleep(1000);
     historico.addPais(brasil);
@@ -51,14 +53,15 @@ public class TesteDeHistorico {
   public void historico_sem_ordenacao() {
     List<ItemDeHistorico> lista = historico.getListaDePaises();
     
-    assertThat(lista.size(), equalTo(6));
+    assertThat(lista.size(), equalTo(7));
 
     assertThat(lista.get(0).getNome(), equalTo("Brasil"));
-    assertThat(lista.get(1).getNome(), equalTo("Chile"));
-    assertThat(lista.get(2).getNome(), equalTo("Equador"));
-    assertThat(lista.get(3).getNome(), equalTo("Alemanha"));
-    assertThat(lista.get(4).getNome(), equalTo("Brasil"));
-    assertThat(lista.get(5).getNome(), equalTo("Síria"));
+    assertThat(lista.get(1).getNome(), equalTo("África do Sul"));
+    assertThat(lista.get(2).getNome(), equalTo("Chile"));
+    assertThat(lista.get(3).getNome(), equalTo("Equador"));
+    assertThat(lista.get(4).getNome(), equalTo("Alemanha"));
+    assertThat(lista.get(5).getNome(), equalTo("Brasil"));
+    assertThat(lista.get(6).getNome(), equalTo("Síria"));
   }
 
   @Test
@@ -67,16 +70,17 @@ public class TesteDeHistorico {
     historico.setTipoDeOrdenacao(QUICKSORT);
     List<ItemDeHistorico> lista = historico.getListaDePaises();
 
-    assertThat(lista.size(), equalTo(6));
+    assertThat(lista.size(), equalTo(7));
     
-    assertThat(lista.get(0).getNome(), equalTo("Alemanha"));
-    assertThat(lista.get(1).getNome(), equalTo("Brasil"));
+    assertThat(lista.get(0).getNome(), equalTo("África do Sul"));
+    assertThat(lista.get(1).getNome(), equalTo("Alemanha"));
     assertThat(lista.get(2).getNome(), equalTo("Brasil"));
-    assertThat(lista.get(3).getNome(), equalTo("Chile"));
-    assertThat(lista.get(4).getNome(), equalTo("Equador"));
-    assertThat(lista.get(5).getNome(), equalTo("Síria"));
+    assertThat(lista.get(3).getNome(), equalTo("Brasil"));
+    assertThat(lista.get(4).getNome(), equalTo("Chile"));
+    assertThat(lista.get(5).getNome(), equalTo("Equador"));
+    assertThat(lista.get(6).getNome(), equalTo("Síria"));
     
-    assertThat(isMenorQue(lista.get(1).getDate(), lista.get(2).getDate()), equalTo(true));
+    assertThat(isMenorQue(lista.get(2).getDate(), lista.get(3).getDate()), equalTo(true));
   }
 
   @Test
@@ -85,16 +89,17 @@ public class TesteDeHistorico {
     historico.setTipoDeOrdenacao(BUBBLESORT);
     List<ItemDeHistorico> lista = historico.getListaDePaises();
     
-    assertThat(lista.size(), equalTo(6));
+    assertThat(lista.size(), equalTo(7));
 
-    assertThat(lista.get(0).getNome(), equalTo("Alemanha"));
-    assertThat(lista.get(1).getNome(), equalTo("Brasil"));
+    assertThat(lista.get(0).getNome(), equalTo("África do Sul"));
+    assertThat(lista.get(1).getNome(), equalTo("Alemanha"));
     assertThat(lista.get(2).getNome(), equalTo("Brasil"));
-    assertThat(lista.get(3).getNome(), equalTo("Chile"));
-    assertThat(lista.get(4).getNome(), equalTo("Equador"));
-    assertThat(lista.get(5).getNome(), equalTo("Síria"));
+    assertThat(lista.get(3).getNome(), equalTo("Brasil"));
+    assertThat(lista.get(4).getNome(), equalTo("Chile"));
+    assertThat(lista.get(5).getNome(), equalTo("Equador"));
+    assertThat(lista.get(6).getNome(), equalTo("Síria"));
     
-    assertThat(isMenorQue(lista.get(1).getDate(), lista.get(2).getDate()), equalTo(true));
+    assertThat(isMenorQue(lista.get(2).getDate(), lista.get(3).getDate()), equalTo(true));
   }
 
   private boolean isMenorQue(Date date1, Date date2) {

@@ -13,9 +13,10 @@ $(document).ready(function() {
                         response(data);
                     }
                }); 
-            },   
+            },
+            autoFocus: true,
             select: function(event, ui) {
-                var pais = $("#country").get(0).value;
+            	var pais = ui.item.value;
                 var ordem = $("#ordem").get(0).value;
                 var ordena = $("#ordena").get(0).value;
 

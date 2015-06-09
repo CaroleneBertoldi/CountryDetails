@@ -34,69 +34,72 @@ public class ObterInformacoesDeUmPais {
 	}
 
 	private void extraindoBandeira(InformacoesDeUmPais informacoes) {
-		String src = extrairImagem(informacoes, "Bandeira");
+		String src = extrairImagem(informacoes, "src", "125px-Flag_of");
 		informacoes.setBandeira(src);
 	}
 	
 	private void extraindoLocalizacao(InformacoesDeUmPais informacoes) {
-		String src = extrairImagem(informacoes, "Localização");
+		String src = extrairImagem(informacoes, "alt", "Localização");
 		informacoes.setLocalizacaoNoMundo(src);
 	}
 	
 	private void extraindoCapital(InformacoesDeUmPais informacoes) {
 		String capital = extraindoDadosDaMesmaLinha("Capital");
-		capital = capital.replaceAll("[0-9]*", "");
-		capital = capital.replaceAll(" °'\"S °'\"O", "");
+		capital = limpandoInformacao(capital, '[', ']');
+		capital = limpandoInformacao(capital, '°');
+		capital = limpandoInformacao(capital, 'º');
+		capital = limpaNumeros(capital);
+		capital = limpaSobrescritos(capital);
 		informacoes.setCapital(capital);
 	}
 	
 	private void extraindoLinguaOficial(InformacoesDeUmPais informacoes) {
 		String lingua = extraindoDadosDaMesmaLinha("Língua oficial");
-		int limite = lingua.indexOf("[");
-		if (limite > 0) {
-		  lingua = lingua.substring(0, limite);
-		}
+		lingua = limpandoInformacao(lingua, '[', ']');
+		lingua = limpandoInformacao(lingua, '*');
+		lingua = limpaNumeros(lingua);
+		lingua = limpaSobrescritos(lingua);
 		informacoes.setLinguaOficial(lingua);
 	}
 	
 	private void extraindoMoeda(InformacoesDeUmPais informacoes) {
 		String moeda = extraindoDadosDaMesmaLinha("Moeda");
+		moeda = limpandoInformacao(moeda, '[', ']');
+		moeda = limpaNumeros(moeda);
+		moeda = limpaSobrescritos(moeda);
 		informacoes.setMoeda(moeda);
 	}
 	
 	private void extraindoArea(InformacoesDeUmPais informacoes) {
 		String area = extraindoDadosDeColunaDaProximaLinha("Lista de países e territórios por área");
-		int limite = area.indexOf("[");
-		if (limite > 0) {
-		  area = area.substring(0, limite);
-		}
-		informacoes.setArea(toCode(area));
+		area = limpandoInformacao(area, '[', ']');
+		area = limpandoInformacao(area, '(', ')');
+		informacoes.setArea(area);
 	}
 	
 	private void extraindoPopulacao(InformacoesDeUmPais informacoes) {
 		String populacao = extraindoDadosDeColunaDaProximaLinha("População");
-	  int limite = populacao.indexOf("[");
-		if (limite > 0) {
-		  populacao = populacao.substring(0, limite);
-		}
-		informacoes.setPopulacao(toCode(populacao));
+		populacao = limpandoInformacao(populacao, '[', ']');
+		populacao = limpandoInformacao(populacao, '(', ')');
+		populacao = limpaSobrescritos(populacao);
+		informacoes.setPopulacao(populacao);
 	}
 	
 	private void extraindoPIB(InformacoesDeUmPais informacoes) {
 		String pib = extraindoDadosDeColunaDaProximaLinha("Produto interno bruto");
-		int limite = pib.indexOf("*");
-		if (limite > 0) {
-		  pib = pib.substring(0, limite);
-		}
-		informacoes.setPIB(toCode(pib));
+		pib = limpandoInformacao(pib, '[', ']');
+		pib = limpandoInformacao(pib, '(', ')');
+		pib = limpandoInformacao(pib, '*');
+		pib = limpaSobrescritos(pib);
+		informacoes.setPIB(pib);
 	}
 	
 	private void extraindoIDH(InformacoesDeUmPais informacoes) {
 		String idh = extraindoDadosDaMesmaLinha("Índice de Desenvolvimento Humano");
-		int limite = idh.indexOf("(") - 1;
-		if (limite > 0) {
-		  idh = idh.substring(0, limite);
-		}
+		idh = limpandoInformacao(idh, '[', ']');
+		idh = limpandoInformacao(idh, '(', ')');
+		idh = limpandoInformacao(idh, ' ');
+		idh = limpaSobrescritos(idh);
 		informacoes.setIDH(idh);
 	}
 	
@@ -105,13 +108,13 @@ public class ObterInformacoesDeUmPais {
 		informacoes.setCodigoISO(codigo);
 	}
 	
-	private String extrairImagem(InformacoesDeUmPais informacoes, String atributo) {
+	private String extrairImagem(InformacoesDeUmPais informacoes, String atributo, String valor) {
 		Elements imgs = doc.getElementsByTag("img");
 		
 		String src = "";
 		for (Element element : imgs) {
-			String attr = element.attr("alt");
-			if (attr.contains(atributo)) {
+			String attr = element.attr(atributo);
+			if (attr.contains(valor)) {
 				src = element.absUrl("src");
 				break;
 			}
@@ -125,11 +128,14 @@ public class ObterInformacoesDeUmPais {
 		
 		String valor = "";
 		for (Element element : elements) {
-			Elements amcora = element.select("a");
-			String attr = amcora.attr("title");
+			Elements ancora = element.select("a");
+			String attr = ancora.attr("title");
 			if (attr.equals(atributo)) {
 				Elements td = element.select("td");
-				valor = td.get(1).text();
+				if (td.size() > 1) {
+				  td.get(1).getElementsByTag("sup").remove();
+					valor = td.get(1).text();
+				}
 			}
 		}
 		
@@ -141,8 +147,8 @@ public class ObterInformacoesDeUmPais {
 		
 		String valor = "";
 		for (int i = 0; i < elements.size(); i++) {
-			Elements amcora = elements.get(i).select("a");
-			String attr = amcora.attr("title");
+			Elements ancora = elements.get(i).select("a");
+			String attr = ancora.attr("title");
 			if (attr.equals(atributo)) {
 				Elements td = elements.get(i + 1).select("td");
 				valor = td.get(1).text();
@@ -152,8 +158,36 @@ public class ObterInformacoesDeUmPais {
 		return valor;
 	}
 
-	private String toCode(String prova) {
-	  return prova.replace((char) 160,' ');
+	private String limpandoInformacao(String informacao, char abre, char fecha) {
+	    informacao = toCode(informacao);
+	    informacao = informacao.replaceAll("\\" + abre + ".*\\" + fecha, "");
+	    informacao = informacao.replaceAll("[ ]+", " ").trim();
+	    return informacao;
 	}
-
+	
+	private String limpandoInformacao(String informacao, char inicio) {
+    informacao = toCode(informacao);
+    informacao = informacao.replaceAll("\\" + inicio + ".*", "");
+    informacao = informacao.replaceAll("[ ]+", " ").trim();
+    return informacao;
+	}
+	
+	private String limpaNumeros(String informacao) {
+	  informacao = toCode(informacao);
+	  informacao = informacao.replaceAll("[0-9]+", "");
+	  informacao = informacao.replaceAll("[ ]+", " ").trim();
+	  return informacao;
+	}
+	
+	private String limpaSobrescritos(String informacao) {
+	  informacao = toCode(informacao);
+	  informacao = informacao.replaceAll("[¹²³⁴⁵⁶⁷⁸⁹]+", "");
+	  informacao = informacao.replaceAll("[ ]+", " ").trim();
+	  return informacao;	  
+	}
+	
+	private String toCode(String prova) {
+		return prova.replace((char) 160,' ').trim();
+	}
+	
 }

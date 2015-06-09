@@ -35,7 +35,7 @@ public class ObterListaDePaises {
 	private class ParaPais implements Function<Element, Pais> {
 
 		public Pais apply(Element element) {
-			String title = element.attr("title");
+			String title = element.text();
 			String href = element.attr("href");
 			
 			Pais pais = new Pais();

@@ -11,3 +11,13 @@ body {
 footer {
     margin: 50px 0;
 }
+
+.table-cell {
+    display: table-cell;
+    border-collapse: collapse;
+    border: solid 1px #bbbbbb
+}
+
+.ordem {
+	text-transform: lowercase;	
+}

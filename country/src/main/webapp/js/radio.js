@@ -1,7 +1,6 @@
-function ordenacao(){     
+function ordenacao(ordem){     
 	 $(function(){
     	var pais = $("#pais").get(0).value;
-    	var ordem = $("#tipoOrdenacao").get(0).value;
     	var ordena = $("#ordena").get(0).value;
     	
     	if (pais != "") {

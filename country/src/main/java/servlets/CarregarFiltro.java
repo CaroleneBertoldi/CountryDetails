@@ -10,12 +10,14 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
+import site.CacheDeListaDePaises;
+
 @WebFilter(urlPatterns = { "/" })
 public class CarregarFiltro implements Filter {
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
-
+    CacheDeListaDePaises.INSTANCIA.getPaises();
   }
 
   @Override

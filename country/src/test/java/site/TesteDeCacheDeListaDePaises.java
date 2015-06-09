@@ -5,8 +5,13 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+// Teste acessa winkipédia em tempo real - executado última vez em 09/06/15
+// Desativado por estar passivel de quebrar caso dados da wikipédia sejam modificados
+
+@Ignore
 public class TesteDeCacheDeListaDePaises {
 	
 	@Test
@@ -14,11 +19,11 @@ public class TesteDeCacheDeListaDePaises {
 		CacheDeListaDePaises cache = CacheDeListaDePaises.INSTANCIA;
 		List<String> paises = cache.getPaises();
 		
-		assertThat(paises.size(), equalTo(333));
+		assertThat(paises.size(), equalTo(339));
 		
 		assertThat(paises.get(0), equalTo("Abcásia"));
 		assertThat(paises.get(1), equalTo("Abcázia"));
-		assertThat(paises.get(332), equalTo("Zimbaué"));
+		assertThat(paises.get(338), equalTo("Zimbaué"));
 	}
 
 }
