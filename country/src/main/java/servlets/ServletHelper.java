@@ -22,21 +22,19 @@ import pojos.InformacoesDeUmPais;
 import pojos.ItemDeHistorico;
 import site.CacheDeListaDePaises;
 
-import com.google.common.base.Throwables;
-
-public class ServletHelper {
+enum ServletHelper {
   
-  private static ServletHelper instancia;
+  INSTANCIA;
   
   public static void carregar(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-    ServletHelper helper = instancia();
+    ServletHelper helper = INSTANCIA;
     
     helper.carregaPais(request);
     helper.carregaHistorico(request);
   }
   
   public static void ordenar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    ServletHelper helper = instancia();
+    ServletHelper helper = INSTANCIA;
     
     carregar(request, response);
     
@@ -44,23 +42,13 @@ public class ServletHelper {
   }
   
   public static void selecionar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    ServletHelper helper = instancia();
+    ServletHelper helper = INSTANCIA;
     
+    helper.carregaPais(request);
     helper.salvaHistorico(request);
-    
-    carregar(request, response);
+    helper.carregaHistorico(request);
     
     helper.dispatch(request, response, "WEB-INF/jsp/index.jsp");
-  }
-  
-  private static synchronized ServletHelper instancia() {
-    return instancia != null ? instancia : new ServletHelper();
-  }
-  
-  private void salvaHistorico(HttpServletRequest request) {
-    String pais = request.getParameter("pais");
-    
-    Historico.INSTANCIA.addPais(pais);
   }
   
   private void carregaPais(ServletRequest request) {
@@ -73,7 +61,7 @@ public class ServletHelper {
         informacoes = new ObterInformacoesDeUmPais(doc).carregarInformacoes(pais);
         
       } catch (IOException e) {
-        throw Throwables.propagate(e);
+        pais = null;
       }
     }
     
@@ -81,16 +69,28 @@ public class ServletHelper {
     request.setAttribute("informacoes", informacoes);
   }
   
+  private void salvaHistorico(HttpServletRequest request) {
+    String pais = (String) request.getAttribute("pais");
+    
+    if (pais != null) {
+      Historico.INSTANCIA.addPais(pais);
+    }
+  }
+  
   private void carregaHistorico(ServletRequest request) {
     String ordem = request.getParameter("ordem");
     boolean ordena = Boolean.parseBoolean(request.getParameter("ordena"));
     
-    
     Historico historico = Historico.INSTANCIA;
-    ordem = ordem != null ? ordem : historico.getTipoDeOrdenacao().name();
+
+    try {
+      TipoDeOrdenacao tipoDeOrdenacao = TipoDeOrdenacao.values()[Integer.parseInt(ordem)];
+      historico.setTipoDeOrdenacao(tipoDeOrdenacao);
+    } catch(Exception e) {
+      ordem = Integer.toString(historico.getTipoDeOrdenacao().ordinal());
+    }
     
     historico.setOrdena(ordena);
-    historico.setTipoDeOrdenacao(TipoDeOrdenacao.valueOf(ordem));
     List<ItemDeHistorico> itensDeHistorico = historico.getListaDePaises();
     
     request.setAttribute("opcoes", TipoDeOrdenacao.values());
@@ -98,6 +98,7 @@ public class ServletHelper {
     request.setAttribute("ordena", Boolean.toString(ordena));
     request.setAttribute("itensDeHistorico", itensDeHistorico);
   }
+  
   
   private void dispatch(HttpServletRequest request, HttpServletResponse response, String path) throws ServletException, IOException {
     RequestDispatcher dispatcher = request.getRequestDispatcher(path);

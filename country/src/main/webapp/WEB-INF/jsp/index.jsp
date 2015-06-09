@@ -4,26 +4,30 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     
     <title>Country Details</title>
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/blog-home.css" rel="stylesheet">
-    <link href="../css/jquery-ui.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/blog-home.css" rel="stylesheet" />
+    <link href="../css/jquery-ui.css" rel="stylesheet" />
     
     <script src="../js/jquery.js"></script>
     <script src="../js/jquery-ui.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/autoComplete.js"> </script>
-    <script src="../js/combobox.js"> </script>
+    <script src="../js/autoComplete.js"></script>
+    <script src="../js/radio.js"></script>
 </head>
 
 <body>
+	<input type="hidden" id="pais" value="${pais}" />
+	<input type="hidden" id="ordem" value="${ordem}" />
+    <input type="hidden" id="ordena" value="${ordena}" />
+
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -40,12 +44,9 @@
                 
                 <div class="well">
                		<form>
-               			<input type="hidden" id="ordem" value="${ordem}">
-               			<input type="hidden" id="ordena" value="${ordena}">
-               			
-	                   	<label for="country"> Pesquisar país: </label>
+               			<label for="country"> Pesquisar país: </label>
 	                    <div class="input-group">
-		                    <input type="text" id="country" placeholder="Pesquisar país sem acentos" class="form-control">
+		                    <input type="text" id="country" placeholder="Pesquisar país sem acentos" class="form-control" />
 	                        <span class="input-group-btn">
 	                            <a class="btn btn-default" role="button">
 	                                <span class="glyphicon glyphicon-search"></span>
@@ -65,22 +66,41 @@
 				
 				<c:if test="${not empty pais}">
 	                <h2>${informacoes.nome}</h2>
-	                <hr>
+	                <hr />
 	                <div class="row">
 	                	<div class="col-md-8">
-		                	<img class="img-responsive" src="${informacoes.bandeira}" alt=""><br>
+	                		<span class="table-cell">
+		                		<img class="img-responsive" src="${informacoes.bandeira}" alt="" />
+		                	</span>
+		                	<br />
 		                	
-			                <p><b>Capital:</b> ${informacoes.capital}</p>
-			                <p><b>Língua oficial:</b> ${informacoes.linguaOficial}</p>
-			                <p><b>Área:</b> ${informacoes.area}</p>
-			                <p><b>População:</b> ${informacoes.populacao}</p>
-			                <p><b>PIB:</b> ${informacoes.PIB}</p>
-			                <p><b>IDH:</b> ${informacoes.IDH}</p>
-			                <p><b>Moeda:</b> ${informacoes.moeda}</p>                
-			                <p><b>Código ISO:</b> ${informacoes.codigoISO}</p>              
+		                	<c:if test="${not empty informacoes.capital}">
+				                <p><b>Capital:</b> ${informacoes.capital}</p>
+		                	</c:if>
+		                	<c:if test="${not empty informacoes.linguaOficial}">
+			                	<p><b>Língua oficial:</b> ${informacoes.linguaOficial}</p>
+		                	</c:if>
+		                	<c:if test="${not empty informacoes.area}">
+				                <p><b>Área:</b> ${informacoes.area}</p>
+		                	</c:if>
+		                	<c:if test="${not empty informacoes.populacao}">
+				                <p><b>População:</b> ${informacoes.populacao}</p>
+		                	</c:if>
+		                	<c:if test="${not empty informacoes.PIB}">
+			                	<p><b>PIB:</b> ${informacoes.PIB}</p>
+		                	</c:if>
+		                	<c:if test="${not empty informacoes.IDH}">
+			                	<p><b>IDH:</b> ${informacoes.IDH}</p>
+		                	</c:if>
+		                	<c:if test="${not empty informacoes.moeda}">
+			                	<p><b>Moeda:</b> ${informacoes.moeda}</p>                
+		                	</c:if>
+		                	<c:if test="${not empty informacoes.codigoISO}">
+			                	<p><b>Código ISO:</b> ${informacoes.codigoISO}</p>              
+		                	</c:if>
 	                	</div>
 	                	<div class="col-md-4">
-		                	<img class="img-responsive" class="img-polaroid" src="${informacoes.localizacaoNoMundo}" alt="">
+		                	<img class="img-responsive" class="img-polaroid" src="${informacoes.localizacaoNoMundo}" alt="" />
 	                	</div>
 	                </div>
                 </c:if>
@@ -89,24 +109,22 @@
 
             <div class="col-md-5">
 	            <div class="well">
-	                <span class="glyphicon glyphicon-wrench"></span> <b>Configurações de ordenação:</b> <br><br>
+	                <span class="glyphicon glyphicon-wrench"></span> <b>Configurações de ordenação:</b>
+	                <br />
+	                <br />
 					<form>
-               			<input type="hidden" id="pais" value="${pais}">
-               			<input type="hidden" id="ordena" value="${ordena}">
-               			
-					    <label for="inputTipoOrdenacao"><b>Algorítmo de ordenação:</b></label>
-						<select id="tipoOrdenacao" onchange="ordenacao();">
-						    <c:forEach var="opcao" items="${opcoes}">
-						        <option value="${opcao}" ${opcao == ordem ? 'selected="selected"' : ''}>${opcao}</option>
-						    </c:forEach>
-						</select>
+               			<label for="inputTipoOrdenacao"><b>Algorítmo de ordenação:</b></label>
+						<c:forEach var="opcao" items="${opcoes}">
+							<input type="radio" name="ordem" ${opcao.ordinal() == ordem ? 'checked="checked"' : ''} onclick="ordenacao('${opcao.ordinal()}')"/><span class="ordem"> ${opcao}</span>
+						</c:forEach>
 					</form>
 				</div>
 					
                 <div class="well">
                     <span class="glyphicon glyphicon-list"> </span> <b>Histórico:</b>      
                     
-                    <br><br>
+                    <br />
+                    <br />
                     
                     <c:if test="${empty itensDeHistorico}">
 						<div class="panel panel-info">
@@ -148,7 +166,7 @@
 
         </div>
 
-        <hr>
+        <hr />
 
         <footer>
             <div class="row">

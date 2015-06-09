@@ -17,6 +17,8 @@ public class HtmlsFalso {
 	  
 	  public static final Document PAGINA_DE_UM_PAIS = html("/wikipedia/pagina-de-um-pais.html");
 
+	  public static Document PAGINA_DE_UM_PAIS_TEXTOS_SEM_NOTAS = html("/wikipedia/pais_com_textos_sem_numeros.html");
+
 	  private HtmlsFalso() {
 	  }
 

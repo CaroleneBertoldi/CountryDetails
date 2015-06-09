@@ -5,10 +5,7 @@ import informacoes.ObterListaDePaises;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.Collator;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -16,6 +13,7 @@ import java.util.logging.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import pojos.NomeDePaisComparator;
 import pojos.Pais;
 
 import com.google.common.base.Throwables;
@@ -29,15 +27,8 @@ public enum CacheDeListaDePaises {
   
   private Logger LOGGER = Logger.getLogger(CacheDeListaDePaises.class.getName());
 	
-	private Map<String, String> paisUrlMap = new TreeMap<String, String>(
-				new Comparator<String>() {
-					@Override
-					public int compare(String o1, String o2) {
-						return Collator.getInstance(new Locale("pt", "BR")).compare(o1, o2);
-					}
-				}
-			);
-
+	private Map<String, String> paisUrlMap = new TreeMap<String, String>(NomeDePaisComparator.INSTANCE);
+	
 	private CacheDeListaDePaises() {
 	  LOGGER.info("CacheDeListaDePaises carregando países...");
 	  

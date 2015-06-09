@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import pojos.ItemDeHistorico;
+import pojos.NomeDePaisComparator;
 
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Lists;
@@ -61,7 +62,7 @@ public enum Historico {
 	  @Override
 	  public int compare(ItemDeHistorico itemDeHistorico1, ItemDeHistorico itemDeHistorico2) {
 	    return ComparisonChain.start()
-	        .compare(itemDeHistorico1.getNome(), itemDeHistorico2.getNome())
+	        .compare(itemDeHistorico1.getNome(), itemDeHistorico2.getNome(), NomeDePaisComparator.INSTANCE)
 	        .compare(itemDeHistorico1.getDate(), itemDeHistorico2.getDate())
 	        .result();	      
 	  }
