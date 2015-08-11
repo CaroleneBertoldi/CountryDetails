@@ -23,7 +23,6 @@ public class CarregarFiltro implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     ServletHelper.carregar(request, response);
-    chain.doFilter(request, response);
   }
 
   @Override

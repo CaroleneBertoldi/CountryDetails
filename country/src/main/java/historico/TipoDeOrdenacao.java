@@ -3,13 +3,16 @@ package historico;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.logging.Logger;
 
 public enum TipoDeOrdenacao {
 
   BUBBLESORT {
-    
+
     @Override
     <T> void sort(T[] array, Comparator<? super T> comparator) {
+      LOGGER.info("Ordenando via Bubblesort");
+
       boolean troca = true;
       T aux;
       while (troca) {
@@ -24,13 +27,15 @@ public enum TipoDeOrdenacao {
         }
       }
     }
-    
+
   },
 
   QUICKSORT {
-    
+
     @Override
     <T> void sort(T[] array, Comparator<? super T> comparator) {
+      LOGGER.info("Ordenando via Quicksort");
+
       ordenar(array, 0, array.length - 1, comparator);
     }
 
@@ -62,8 +67,10 @@ public enum TipoDeOrdenacao {
       array[f] = pivo;
       return f;
     }
-    
+
   };
+
+  private static Logger LOGGER = Logger.getLogger(TipoDeOrdenacao.class.getName());
 
   abstract <T> void sort(T[] array, Comparator<? super T> comparator);
 
