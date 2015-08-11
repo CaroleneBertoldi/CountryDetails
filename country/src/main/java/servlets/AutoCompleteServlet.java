@@ -19,25 +19,25 @@ import com.google.gson.Gson;
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = { "/autocomplete/*" })
 public class AutoCompleteServlet extends HttpServlet {
-   
-	@Override
-    protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-      List<String> paises = CacheDeListaDePaises.INSTANCIA.getPaises();
-  
-      response.setContentType("application/json");
-  
-      final String param = request.getParameter("term");
-      final List<Autocomplete> result = new ArrayList<Autocomplete>();
-      for (final String pais : paises) {
-        String normalized = Normalizer.normalize(pais, Normalizer.Form.NFD)
-            .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-        
-        if (normalized.toLowerCase().startsWith(param.toLowerCase())) {
-          result.add(new Autocomplete(pais, pais));
-        }
+
+  @Override
+  protected void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+    List<String> paises = CacheDeListaDePaises.INSTANCIA.getPaises();
+
+    response.setContentType("application/json");
+
+    final String param = request.getParameter("term");
+    final List<Autocomplete> result = new ArrayList<Autocomplete>();
+    for (final String pais : paises) {
+      String normalized = Normalizer.normalize(pais, Normalizer.Form.NFD)
+          .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+
+      if (normalized.toLowerCase().startsWith(param.toLowerCase())) {
+        result.add(new Autocomplete(pais, pais));
       }
-  
-      response.getWriter().write(new Gson().toJson(result));
     }
-	
+
+    response.getWriter().write(new Gson().toJson(result));
+  }
+
 }

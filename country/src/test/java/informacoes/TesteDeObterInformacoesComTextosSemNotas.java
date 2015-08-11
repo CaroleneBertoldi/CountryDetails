@@ -11,23 +11,23 @@ import pojos.InformacoesDeUmPais;
 import util.HtmlsFalso;
 
 public class TesteDeObterInformacoesComTextosSemNotas {
-	
-	private ObterInformacoesDeUmPais parser;
 
-	@Before	
-	public void start()  {
-		Document doc = HtmlsFalso.PAGINA_DE_UM_PAIS_TEXTOS_SEM_NOTAS;
-	    parser = new ObterInformacoesDeUmPais(doc);
-	 }
-	
-	@Test
-	public void obter_pais_texto_sem_nota(){
-		String pais = "Portugal";
-		InformacoesDeUmPais informacoes = parser.carregarInformacoes(pais);
-		
-		assertThat(informacoes.getCapital(), equalTo("Lisboa"));
-		assertThat(informacoes.getLinguaOficial(), equalTo("Português"));
-		assertThat(informacoes.getMoeda(), equalTo("Euro (EUR)"));
-	}
+  private ObterInformacoesDeUmPais parser;
+
+  @Before
+  public void start() {
+    Document doc = HtmlsFalso.PAGINA_DE_UM_PAIS_TEXTOS_SEM_NOTAS;
+    parser = new ObterInformacoesDeUmPais(doc);
+  }
+
+  @Test
+  public void obter_pais_texto_sem_nota() {
+    String pais = "Portugal";
+    InformacoesDeUmPais informacoes = parser.carregarInformacoes(pais);
+
+    assertThat(informacoes.getCapital(), equalTo("Lisboa"));
+    assertThat(informacoes.getLinguaOficial(), equalTo("Português"));
+    assertThat(informacoes.getMoeda(), equalTo("Euro (EUR)"));
+  }
 
 }
