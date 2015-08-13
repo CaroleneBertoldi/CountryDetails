@@ -6,7 +6,7 @@ O Country Details é um webservice que exibe informações de países obtidas do
 
 A página inicial é acessada acessando apenas http://localhost:8080/
 
-![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/master/documentacao/tela-01-inicio)
+![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/CD-12/documentacao/tela-01-inicio)
 
 No primeiro acesso nenhum país ainda foi selecionado e ainda não há histórico de buscas de países. O algoritmo de ordenação padrão é o Quicksort.
 	
@@ -15,37 +15,37 @@ No primeiro acesso nenhum país ainda foi selecionado e ainda não há históric
 No campo “Pesquisar país” é possível iniciar uma busca de um país. 
 Ao iniciar a pesquisa aparecerão todas as opções de países para a sequência de caracteres escrita. A busca deve ser realizada sem acentuação, pois os países com acento já são filtrados com busca simples.
 
-![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/master/documentacao/tela-02.png)
+![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/CD-12/documentacao/tela-02.png)
 
 As informações do país selecionado são exibidas e o país é adicionado no histórico de buscas.
 
-![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/master/documentacao/tela-03.png)
+![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/CD-12/documentacao/tela-03.png)
 
 ######1.2. Ordenação do histórico
 
 O histórico é inicialmente exibido em ordem das buscas realizadas, exibindo sempre a ultima busca na primeira linha. E possui opção de ordenação por nome de países.
 
-![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/master/documentacao/tela-04.png)
+![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/CD-12/documentacao/tela-04.png)
 
 Ao clicar no ícone para ordenação por nome de país o histórico é ordenado utilizando o algoritmo de ordenação que estiver selecionado e o ícone é modificado exibindo a opção de retirar a ordenação.
 
-![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/master/documentacao/tela-05.png)
+![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/CD-12/documentacao/tela-05.png)
 
 O algoritmo de ordenação pode ser selecionado na caixa “Configuração de ordenação”. O histórico é recarregado para utilização do algoritmo selecionado.
 
-![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/master/documentacao/tela-06.png)
+![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/CD-12/documentacao/tela-06.png)
 
 ######1.3 Detalhes do histórico
 
 Através da listagem dos países exibidos no histórico é possível acessar os detalhes da busca realizada anteriormente.
 
-![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/master/documentacao/tela-07.png)
+![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/CD-12/documentacao/tela-07.png)
 
 ######1.4. Integridade do histórico
 
 Ao subir o sistema novamente, este é recarregado listando o histórico de navegação do ultimo acesso.
 
-![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/master/documentacao/tela-08.png)
+![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/CD-12/documentacao/tela-08.png)
 
 ##2. Manual do desenvolvedor
 
@@ -70,7 +70,7 @@ Depois é só seguir os demais passos:
 
 ##3. Diagrama de caso de uso
 
-![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/master/documentacao/caso_de_uso.png)
+![alt tag](https://github.com/CaroleneBertoldi/CountryDetails/blob/CD-12/documentacao/caso_de_uso.png)
 
 ######Atores:
 
