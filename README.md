@@ -58,10 +58,13 @@ Depois é só seguir os demais passos:
 <ol>
 <li>Descompactar projeto em pasta pessoal</li>
 <li>No terminal, localizar pasta do projeto e abrir projeto
-	<code>cd CountryDetails</code>
+	<code>cd CountryDetails/country</code>
 </li>
-<li>“subir” projeto
-	<code>java -jar jetty-runner.jar country/country.war</code>
+<li>Realizar deploy
+	<code>mvn clean install</code>
+</li>
+<li>Voltar a pasta anterior e “subir” projeto
+	<code>java -jar jetty-runner.jar country/target/country.war</code>
 </li>
 <li>acessar url do projeto
 	<code>http://localhost:8080/</code>
